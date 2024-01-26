@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book {{ resort.name }}</title>
+</head>
+<body>
+    <h1>Book {{ resort.name }}</h1>
+    <form method="post">
+        <label for="check_in_date">Check-in Date:</label>
+        <input type="date" id="check_in_date" name="check_in_date" required><br>
+
+        <label for="check_out_date">Check-out Date:</label>
+        <input type="date" id="check_out_date" name="check_out_date" required><br>
+
+        <input type="submit" value="Book Now">
+    </form>
+</body>
+</html>

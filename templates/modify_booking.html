@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify Booking</title>
+</head>
+<body>
+    <h1>Modify Booking for {{ booking.resort.name }}</h1>
+    <form method="post">
+        <label for="check_in_date">Check-in Date:</label>
+        <input type="date" id="check_in_date" name="check_in_date" value="{{ booking.check_in_date }}" required><br>
+
+        <label for="check_out_date">Check-out Date:</label>
+        <input type="date" id="check_out_date" name="check_out_date" value="{{ booking.check_out_date }}" required><br>
+
+        <input type="submit" value="Update Booking">
+    </form>
+</body>
+</html>

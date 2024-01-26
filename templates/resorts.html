@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Resorts</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <h1>Resorts</h1>
+    <ul>
+        {% for resort in resorts %}
+            <li><a href="{{ url_for('resort_detail', resort_id=resort.id) }}">{{ resort.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TimeShare Chat</title>
+    <style>
+        /* Add your CSS here for chat layout */
+        .chat-container { max-width: 500px; margin: auto; }
+        .chat-box { height: 300px; border: 1px solid #ddd; margin-bottom: 10px; padding: 10px; overflow-y: scroll; }
+        .chat-message { margin: 5px; padding: 5px; border: 1px solid #1e1e1e; }
+    </style>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="chat-container">
+    <div id="chat-box" class="chat-box"></div>
+    <input type="text" id="message-input" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<style>
+    .chat-container {
+        max-width: 600px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.42);
+        margin: 20px auto;
+        font-family: Arial, sans-serif;
+    }
+
+    .chat-box {
+        height: 400px;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+        padding: 10px;
+        overflow-y: auto;
+        background: rgba(89, 89, 89, 0.66);
+        border-radius: 8px;
+    }
+
+    #message-input {
+        width: calc(100% - 120px);
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-right: 10px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100px;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .chat-message {
+        background-color: #e7f3fe;
+        border-left: 3px solid #007bff;
+        padding: 5px 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+        max-width: 80%;
+        word-wrap: break-word;
+        color: black; /* Set text color to black */
+    }
+</style>
+
+    <script>
+        function sendMessage() {
+            var message = document.getElementById('message-input').value;
+            document.getElementById('message-input').value = ''; // Clear the input box
+            updateChat('You', message); // Update chat with user message
+
+            // Make an AJAX call to the server
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/ask", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    // Update chat with bot response
+                    var response = JSON.parse(this.responseText);
+                    updateChat('Bot', response.answer);
+                }
+            }
+            xhr.send("question=" + encodeURIComponent(message));
+        }
+
+        function updateChat(sender, message) {
+            var chatBox = document.getElementById('chat-box');
+            var msgDiv = document.createElement('div');
+            msgDiv.classList.add('chat-message');
+            msgDiv.textContent = sender + ': ' + message;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+        }
+    </script>
+</body>
+</html>

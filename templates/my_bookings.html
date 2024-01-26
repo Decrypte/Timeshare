@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <!-- Include any additional stylesheets or scripts here -->
+</head>
+<body>
+    <h1>My Bookings</h1>
+    <ul>
+        {% for booking in bookings %}
+            <li>
+                Resort: {{ booking.resort.name }}<br>
+                Check-in Date: {{ booking.check_in_date }}<br>
+                Check-out Date: {{ booking.check_out_date }}<br>
+                Booked on: {{ booking.booking_date }}<br>
+                <a href="{{ url_for('modify_booking', booking_id=booking.id) }}">Modify</a>
+                <form method="post" action="{{ url_for('cancel_booking', booking_id=booking.id) }}" style="display: inline;">
+                    <input type="submit" value="Cancel" onclick="return confirm('Are you sure you want to cancel this booking?');">
+                </form>
+            </li>
+        {% else %}
+            <li>No bookings found.</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
